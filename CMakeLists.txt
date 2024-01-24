@@ -7,7 +7,10 @@ project(mmwave_ROS)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED)
+find_package(catkin REQUIRED
+roscpp
+std_msgs
+)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -113,7 +116,7 @@ catkin_package(
 ## Your package locations should be listed before other locations
 include_directories(
 # include
-# ${catkin_INCLUDE_DIRS}
+${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -225,7 +228,7 @@ add_executable(mmwave ${SOURCES})
 # target_link_libraries(mmwave PRIVATE ...)
 
 #add pthread and math library
-target_link_libraries(mmwave pthread m)
+target_link_libraries(mmwave pthread m ${catkin_LIBRARIES})
 
 # Set the output directory for the executable
 set_target_properties(mmwave PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/output)

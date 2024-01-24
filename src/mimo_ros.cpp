@@ -26,8 +26,8 @@ extern "C"
 #include "toml/config.h"
 
 }
-// #include "ros/ros.h"
-// #include "std_msgs/Bool.h"
+#include "ros/ros.h"
+#include "std_msgs/Bool.h"
 
 /******************************
  *      CONFIGURATIONS
