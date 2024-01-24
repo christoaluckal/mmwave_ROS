@@ -24,25 +24,10 @@ extern "C"
 {
 #include "mimo.h"
 #include "toml/config.h"
+
 }
 #include "ros/ros.h"
 #include "std_msgs/Bool.h"
-
-
-bool record_msg = false;
-
-void recordListener(const std_msgs::Bool::ConstPtr& msg)
-{
-  if(msg->data == true)
-  {
-    record_msg = true;
-  }
-  else
-  {
-    record_msg = false;
-  }
-  ROS_INFO("I heard: [%d]", msg->data);
-}
 
 /******************************
  *      CONFIGURATIONS
@@ -506,10 +491,6 @@ void signal_handler (int sig) {
 
 int main (int argc, char *argv[]) {
 
-  ros::init(argc, argv, "mimo_ros");
-  ros::NodeHandle nh;
-  ros::Subscriber sub = nh.subscribe("/record", 1000, recordListener);
-
   DEBUG_PRINT("MMWave EVM configuration and control application\n");
   unsigned char default_ip_addr[] = "192.168.33.180";
   unsigned int default_port = 5001U;
@@ -688,16 +669,6 @@ int main (int argc, char *argv[]) {
     // Start configuration
     configure(config);
     msleep(2000);
-  }
-
-  
-  while (ros::ok()) {
-    std::cout << "Waiting for record command" << std::endl;
-    std::cout << record_msg << std::endl;
-    ros::spinOnce();
-    if (record_msg) {
-      break;
-    }
   }
 
   if ((unsigned char *)get_option(&parser, "record") != NULL) {
