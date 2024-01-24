@@ -200,3 +200,32 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/ti/mmwavelink/src/*.c
+                          ${CMAKE_CURRENT_SOURCE_DIR}/src/ti/ethernet/src/*.c
+                          ${CMAKE_CURRENT_SOURCE_DIR}/src/ti/mmwave/*.c
+                          ${CMAKE_CURRENT_SOURCE_DIR}/src/opt/*.c
+                          ${CMAKE_CURRENT_SOURCE_DIR}/src/toml/*.c
+                          ${CMAKE_CURRENT_SOURCE_DIR}/src/mimo_ros.cpp
+                          )
+
+# Create the executable
+add_executable(mmwave ${SOURCES})
+
+# Set additional compiler flags if needed
+# target_compile_options(mmwave PRIVATE ...)
+
+# Set additional include directories if needed
+# target_include_directories(mmwave PRIVATE ...)
+
+# Set additional linker flags if needed
+# target_link_options(mmwave PRIVATE ...)
+
+# Set additional libraries if needed
+# target_link_libraries(mmwave PRIVATE ...)
+
+#add pthread and math library
+target_link_libraries(mmwave pthread m)
+
+# Set the output directory for the executable
+set_target_properties(mmwave PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/output)
